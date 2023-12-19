@@ -1,29 +1,30 @@
 import { useEffect, useState } from "react";
 import { fetchProducts } from "./api-mock/products-api";
+import ProductsList from "./ProductsList";
+import ShoppingCart from "./ShoppingCart";
 
 const App = () => {
   const [products, setProducts] = useState([]);
+  const [cart, setCart] = useState([]);
+
   useEffect(() => {
     fetchProducts().then((products) => {
       console.log("Fetched the products", products);
       setProducts(products);
     });
   });
+
   return (
     <div>
-      <h1>Hello! Here are the available products:</h1>
-      <ul>
-        {products.map((product) => (
-          <li key={product.id}>
-            <div>
-              <p>
-                {product.name} ( price: ${product.price})
-              </p>
-              <img src={`images/${product.image}`} width="200px" />
-            </div>
-          </li>
-        ))}
-      </ul>
+      <h1>Coffee shop</h1>
+      <div style={{ display: "flex "}}>
+        <div style={{ width: "70%", padding: "10px" }}>
+          <ProductsList products={products} />
+        </div>
+        <div style={{ width: "30%", backgroundColor: "lightskyblue", padding: "10px" }}>
+          <ShoppingCart cart={cart} />
+        </div>
+      </div>
     </div>
   );
 };
