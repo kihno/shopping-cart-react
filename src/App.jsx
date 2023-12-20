@@ -12,7 +12,12 @@ const App = () => {
       console.log("Fetched the products", products);
       setProducts(products);
     });
-  });
+    setCart([
+      { productId: 1, quantity: 2 },
+      { productId: 3, quantity: 1 },
+      { productId: 5, quantity: 5 }
+    ]);
+  }, []);
 
   return (
     <div>
@@ -22,7 +27,7 @@ const App = () => {
           <ProductsList products={products} />
         </div>
         <div style={{ width: "30%", backgroundColor: "lightskyblue", padding: "10px" }}>
-          <ShoppingCart cart={cart} />
+          <ShoppingCart cart={cart} products={products} />
         </div>
       </div>
     </div>
