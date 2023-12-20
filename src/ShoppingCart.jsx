@@ -45,7 +45,7 @@ const ShoppingCart = ({ cart, products }) => {
         <tfoot>
           <tr>
             <th colSpan={3} style={{ textAlign: "right", paddingTop: "10px" }}>
-              Total price: ${totalCartPrice}
+              Total price: {formatPrice(totalCartPrice)}
             </th>
           </tr>
         </tfoot>

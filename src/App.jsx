@@ -12,13 +12,27 @@ const App = () => {
     error,
   } = useQuery("get-products", () => fetchProducts());
 
-  useEffect(() => {
-    setCart([
-      { productId: 1, quantity: 2 },
-      { productId: 3, quantity: 1 },
-      { productId: 5, quantity: 5 }
-    ]);
-  }, []);
+  const addToCart = (product) => {
+    const isProductInCart = Boolean(
+      cart.find((item) => item.productId === product.id)
+    );
+
+    if (isProductInCart) {
+      setCart(
+        cart.map((item) => {
+          if (item.productId === product.id) {
+            return {
+              ...item,
+              quantity: item.quantity + 1,
+            };
+          }
+          return item;
+        })
+      );
+    } else {
+      setCart([...cart, { productId: product.id, quantity: 1 }]);
+    }
+  };
 
   return (
     <div>
@@ -28,7 +42,7 @@ const App = () => {
       {products && (
         <div style={{ display: "flex "}}>
           <div style={{ width: "70%", padding: "10px" }}>
-            <ProductsList products={products} />
+            <ProductsList products={products} handleAdd={addToCart} />
           </div>
           <div style={{ width: "30%", backgroundColor: "lightskyblue", padding: "10px" }}>
             <ShoppingCart cart={cart} products={products} />
